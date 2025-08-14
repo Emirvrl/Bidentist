@@ -5,22 +5,31 @@
   <link rel="stylesheet" href="ekran.css">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Varol Klinigi | Hos Geldiniz</title>
+  <title>Varol Kliniği | Hoş Geldiniz</title>
   <meta name="description" content="Dis klinigi randevu ekrani" />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400&display=swap"
+    rel="stylesheet">
   <style>
+    #next,
+    #calendarStep {
+      scroll-margin-top: var(--header-h);
+      /* extra 12px removed */
+    }
+
+
     :root {
       /* palette */
-      --navy: #0a2540;
-      --blue: #1e90ff;
-      --gold: #d4af37;
-      --bg: #f4f8ff;
+      --navy: #0A2342;
+      --blue: #1E6FB6;
+      --gold: #B68B2A;
+      --bg: #A5A5A5;
       --card: #ffffff;
       --text: #0b1118;
-      --muted: #3e5876;
+      --muted: #A5A5A5;
       --radius: 16px;
       --danger: #d62828;
       --overlay: rgba(0, 0, 0, .5);
+      --header-h: 80px;
     }
 
     * {
@@ -34,7 +43,7 @@
 
     body {
       margin: 0;
-      font-family: 'Nunito Sans', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family: 'Open Sans', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: var(--text);
       background:
         radial-gradient(1200px 800px at 10% -10%, #e7f1ff 0%, rgba(231, 241, 255, 0) 60%),
@@ -89,6 +98,14 @@
 
     /* header */
     header {
+      header {
+        height: var(--header-h);
+        z-index: 999;
+      }
+
+      height: var(--header-h);
+      z-index: 999;
+      /* icerikten ustte kalsin */
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -96,7 +113,7 @@
       padding: 16px 22px;
       position: sticky;
       top: 0;
-      background: linear-gradient(180deg, rgba(10, 37, 64, .97), rgba(10, 37, 64, .86));
+      background: linear-gradient(180deg, rgba(10, 35, 66, .97), rgba(10, 35, 66, .86));
       backdrop-filter: blur(8px);
       border-bottom: 1px solid rgba(255, 255, 255, .08);
       color: #fff;
@@ -142,7 +159,7 @@
       color: #0a2540;
       background: var(--gold);
       transition: transform .08s ease, box-shadow .2s ease, background .2s ease, opacity .2s ease;
-      box-shadow: 0 10px 30px rgba(212, 175, 55, .25), inset 0 0 0 1px rgba(0, 0, 0, .06);
+      box-shadow: 0 10px 30px rgba(182, 139, 42, .25), inset 0 0 0 1px rgba(0, 0, 0, .06);
     }
 
     .btn:hover {
@@ -160,6 +177,19 @@
       margin: 8vh auto 0;
       padding: 0 22px;
       text-align: center;
+    }
+
+    /* headings use Montserrat Bold */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .title,
+    .modal h3 {
+      font-family: 'Montserrat', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 700;
     }
 
     h1 {
@@ -393,10 +423,21 @@
       padding: 18px;
     }
 
+    /* dark theme modal readability */
+    html[data-theme="dark"] .modal {
+      background: var(--card);
+      color: var(--text);
+      border-color: rgba(255, 255, 255, .12);
+    }
+
     .modal h3 {
       margin: 0 0 10px;
       font-size: 20px;
       color: var(--navy);
+    }
+
+    html[data-theme="dark"] .modal h3 {
+      color: var(--text);
     }
 
     .summary-list {
@@ -418,13 +459,30 @@
       color: #374151;
     }
 
+    html[data-theme="dark"] .summary-key {
+      color: var(--text);
+    }
+
     .modal-actions {
       display: flex;
       gap: 10px;
       justify-content: flex-end;
       margin-top: 14px;
     }
-    
+
+    /* accessibility helper to hide labels visually but keep for screen readers */
+    .vh {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+
     /* theme switch (pill + knob) */
     .theme-switch {
       width: 56px;
@@ -451,18 +509,29 @@
       pointer-events: none;
     }
 
-    .theme-switch .sun { left: 8px; }
-    .theme-switch .moon { right: 8px; }
+    .theme-switch .sun {
+      left: 8px;
+    }
+
+    .theme-switch .moon {
+      right: 8px;
+    }
+
     /* clarify state: in light, sun prominent; in dark, moon prominent */
-    html:not([data-theme="dark"]) .theme-switch .sun { opacity: 1; }
-    html:not([data-theme="dark"]) .theme-switch .moon { opacity: .4; }
+    html:not([data-theme="dark"]) .theme-switch .sun {
+      opacity: 1;
+    }
+
+    html:not([data-theme="dark"]) .theme-switch .moon {
+      opacity: .4;
+    }
 
     .theme-switch .switch-handle {
       width: 22px;
       height: 22px;
       border-radius: 50%;
       background: #fff;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, .25), inset 0 0 0 1px rgba(0,0,0,.06);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .25), inset 0 0 0 1px rgba(0, 0, 0, .06);
       transform: translateX(0);
       transition: transform .25s ease;
     }
@@ -478,18 +547,29 @@
       background: var(--gold);
     }
 
-    html[data-theme="dark"] .theme-switch .sun { opacity: .4; }
-    html[data-theme="dark"] .theme-switch .moon { opacity: 1; }
+    html[data-theme="dark"] .theme-switch .sun {
+      opacity: .4;
+    }
+
+    html[data-theme="dark"] .theme-switch .moon {
+      opacity: 1;
+    }
+
     /* icon colors for readability */
-    .theme-switch .icon { color: #0a2540; }
-    html[data-theme="dark"] .theme-switch .icon { color: #e5e7eb; }
+    .theme-switch .icon {
+      color: #0a2540;
+    }
+
+    html[data-theme="dark"] .theme-switch .icon {
+      color: #e5e7eb;
+    }
 
     /* dark theme overrides */
     html[data-theme="dark"] {
       --bg: #0b1118;
       --card: #0f172a;
       --text: #e5e7eb;
-      --muted: #cbd5e1;
+      --muted: #A5A5A5;
     }
 
     html[data-theme="dark"] body {
@@ -513,14 +593,42 @@
       border-color: rgba(255, 255, 255, .15);
     }
 
-    html[data-theme="dark"] label { color: #e5e7eb; }
-    html[data-theme="dark"] .helper { color: #fca5a5; }
-    html[data-theme="dark"] .date-wheel { background: #0b1220; border-color: rgba(255,255,255,.12); }
-    html[data-theme="dark"] .cal { background: #0b1220; }
-    html[data-theme="dark"] .day { background: #0e1628; color: #e5e7eb; border-color: rgba(255,255,255,.08); }
-    html[data-theme="dark"] .day.disabled { background: #0a0f1a; }
-    html[data-theme="dark"] .slots h3 { color: #e5e7eb; }
-    html[data-theme="dark"] .slot { background: #0e1628; color: #e5e7eb; border-color: rgba(255,255,255,.1); }
+    html[data-theme="dark"] label {
+      color: #e5e7eb;
+    }
+
+    html[data-theme="dark"] .helper {
+      color: #fca5a5;
+    }
+
+    html[data-theme="dark"] .date-wheel {
+      background: #0b1220;
+      border-color: rgba(255, 255, 255, .12);
+    }
+
+    html[data-theme="dark"] .cal {
+      background: #0b1220;
+    }
+
+    html[data-theme="dark"] .day {
+      background: #0e1628;
+      color: #e5e7eb;
+      border-color: rgba(255, 255, 255, .08);
+    }
+
+    html[data-theme="dark"] .day.disabled {
+      background: #0a0f1a;
+    }
+
+    html[data-theme="dark"] .slots h3 {
+      color: #e5e7eb;
+    }
+
+    html[data-theme="dark"] .slot {
+      background: #0e1628;
+      color: #e5e7eb;
+      border-color: rgba(255, 255, 255, .1);
+    }
 
     html[data-theme="dark"] .cal {
       background: var(--card);
@@ -551,8 +659,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255,255,255,.25);
-      border: 1px solid rgba(0,0,0,.08);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .25);
+      border: 1px solid rgba(0, 0, 0, .08);
       background:
         radial-gradient(circle at 35% 38%, #fff 0 48%, transparent 49%),
         radial-gradient(circle at 60% 30%, #fff 0 46%, transparent 47%),
@@ -562,14 +670,15 @@
     }
 
     html[data-theme="dark"] .contact-fab {
-      border-color: rgba(255,255,255,.12);
+      border-color: rgba(255, 255, 255, .12);
     }
 
     .contact-fab .phone-icon {
       font-size: 30px;
       line-height: 1;
-      color: #22c55e; /* green */
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,.25));
+      color: #22c55e;
+      /* green */
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .25));
     }
 
     /* phone badge on the FAB, visible in both themes */
@@ -593,8 +702,8 @@
       border-radius: 999px;
       background: #ffffff;
       color: #0a2540;
-      border: 1px solid rgba(0,0,0,.08);
-      box-shadow: 0 10px 24px rgba(0,0,0,.18);
+      border: 1px solid rgba(0, 0, 0, .08);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, .18);
       text-decoration: none;
       font-weight: 600;
       opacity: 0;
@@ -603,7 +712,9 @@
       transition: opacity .20s ease, transform .20s ease;
     }
 
-    .bubble .icon { font-size: 16px; }
+    .bubble .icon {
+      font-size: 16px;
+    }
 
     .contact-widget:hover .bubble,
     .contact-widget:focus-within .bubble {
@@ -612,14 +723,22 @@
       pointer-events: auto;
     }
 
-    .bubble:nth-child(1) { transition-delay: .02s; }
-    .bubble:nth-child(2) { transition-delay: .07s; }
-    .bubble:nth-child(3) { transition-delay: .12s; }
+    .bubble:nth-child(1) {
+      transition-delay: .02s;
+    }
+
+    .bubble:nth-child(2) {
+      transition-delay: .07s;
+    }
+
+    .bubble:nth-child(3) {
+      transition-delay: .12s;
+    }
 
     html[data-theme="dark"] .bubble {
       background: #0f172a;
       color: var(--text);
-      border-color: rgba(255,255,255,.06);
+      border-color: rgba(255, 255, 255, .06);
     }
 
     /* speed up the personal info step: reduce animations/transitions */
@@ -639,55 +758,55 @@
   <!-- header -->
   <header>
     <div class="brand">
-      <img class="logo" id="siteLogo" src="sollogoo.png" alt="Klinik logosu" />
-      
+      <img class="logo" id="siteLogo" src="bidentistlogo.png" alt="Klinik logosu" />
+
     </div>
     <nav class="actions" aria-label="Hizli Islemler">
       <div class="theme-switch" id="themeToggle">
-  <span class="icon sun">☀️</span>
-  <span class="icon moon">🌙</span>
-  <div class="switch-handle"></div>
-</div>
-      
+        <span class="icon sun">☀️</span>
+        <span class="icon moon">🌙</span>
+        <div class="switch-handle"></div>
+      </div>
+
     </nav>
   </header>
 
   <!-- main -->
   <main>
     <section class="hero">
-      <h1>Kolay Randevu, Saglikli Gulus</h1>
+      <h1>Kolay Randevu, Sağlıklı Gülüş</h1>
 
       <div class="card" role="region" aria-label="Randevu Formu">
         <!-- STEP 1: location -> clinic -> procedure -->
         <form id="preForm" class="form-vertical" novalidate>
           <div class="field">
-            <label for="city">📍 Il<span class="req">*</span></label>
+            <label for="city" class="vh">📍 İl<span class="req">*</span></label>
             <select id="city" required>
-              <option value="">Sehir giriniz</option>
+              <option value="">📍 Şehir seçiniz</option>
             </select>
             <div class="helper" id="cityHelp"></div>
           </div>
 
           <div class="field">
-            <label for="district">🏙️ Ilce<span class="req">*</span></label>
+            <label for="district" class="vh">🏙️ İlçe<span class="req">*</span></label>
             <select id="district" required disabled>
-              <option value="">Ilce giriniz</option>
+              <option value="">🏙️ İlçe seçiniz</option>
             </select>
             <div class="helper" id="districtHelp"></div>
           </div>
 
           <div class="field">
-            <label for="clinic">🏥 Klinik Secimi<span class="req">*</span></label>
+            <label for="clinic" class="vh">🏥 Klinik Seçimi<span class="req">*</span></label>
             <select id="clinic" required disabled>
-              <option value="">Klinik seciniz</option>
+              <option value="">🏥 Klinik seçiniz</option>
             </select>
             <div class="helper" id="clinicHelp"></div>
           </div>
 
           <div class="field">
-            <label for="proc">🧾 Islem Tipi<span class="req">*</span></label>
+            <label for="proc" class="vh">🧾 İşlem Tipi<span class="req">*</span></label>
             <select id="proc" required>
-              <option value="">Islem tipi seciniz</option>
+              <option value="">🧾 İşlem tipi seçiniz</option>
               <option>Genel Muayene</option>
               <option>Dis Tasi Temizligi</option>
               <option>Dis Beyazlatma</option>
@@ -712,25 +831,25 @@
         <form id="infoForm" class="form-vertical" novalidate>
           <!-- single ID field -->
           <div class="field" id="idField">
-            <label for="idInput" id="idLabel">🪪 T.C. Kimlik Numarasi <span class="req">*</span></label>
-            <input type="text" id="idInput" maxlength="11" inputmode="numeric" placeholder="11 haneli TCKN">
+            <label for="idInput" id="idLabel" class="vh">🪪 T.C. Kimlik Numarası <span class="req">*</span></label>
+            <input type="text" id="idInput" maxlength="11" inputmode="numeric" placeholder="🪪 11 haneli TCKN">
             <div class="helper" id="idHelp"></div>
           </div>
 
           <!-- checkbox under the field -->
           <div class="field" style="display:flex; align-items:center; gap:10px;">
             <input type="checkbox" id="nonCitizen" />
-            <label for="nonCitizen" style="font-weight:600;">TC vatandasi degilim</label>
+            <label for="nonCitizen" style="font-weight:600;">TC vatandaşı değilim</label>
           </div>
 
           <div class="field">
-            <label for="fullname">👤 Ad Soyad<span class="req">*</span></label>
-            <input type="text" id="fullname" placeholder="Ad Soyad">
+            <label for="fullname" class="vh">👤 Ad Soyad<span class="req">*</span></label>
+            <input type="text" id="fullname" placeholder="👤 Ad Soyad">
             <div class="helper" id="fullnameHelp"></div>
           </div>
 
           <div class="field">
-            <label>🎂 Dogum Tarihi<span class="req">*</span></label>
+            <label class="vh">🎂 Doğum Tarihi<span class="req">*</span></label>
             <div class="date-wheel">
               <select id="dobDay"></select>
               <select id="dobMonth"></select>
@@ -740,14 +859,14 @@
           </div>
 
           <div class="field">
-            <label for="phone">📞 Telefon (5xx)xxx-xx-xx</label>
-            <input type="tel" id="phone" placeholder="(5__)___-__-__" inputmode="numeric" maxlength="16">
+            <label for="phone" class="vh">📞 Telefon (5xx)xxx-xx-xx</label>
+            <input type="tel" id="phone" placeholder="📞 (5__)___-__-__" inputmode="numeric" maxlength="16">
             <div class="helper" id="phoneHelp"></div>
           </div>
 
           <div class="field">
-            <label for="email">📧 E-posta</label>
-            <input type="email" id="email" placeholder="ornek@mail.com">
+            <label for="email" class="vh">📧 E-posta</label>
+            <input type="email" id="email" placeholder="📧 ornek@mail.com">
             <div class="helper" id="emailHelp"></div>
           </div>
 
@@ -759,7 +878,7 @@
     <!-- STEP 3: calendar & slots -->
     <section id="calendarStep" hidden>
       <div class="card">
-        <div class="title">Randevu Takvim</div>
+        <div class="title">Randevu Takvimi</div>
         <div class="cal" id="calendar">
           <div class="cal-head">
             <button class="btn" type="button" id="prevMonth">&#9664;</button>
@@ -769,7 +888,7 @@
           <div class="cal-grid" id="dow">
             <div class="dow">Pzt</div>
             <div class="dow">Sal</div>
-            <div class="dow">Car</div>
+            <div class="dow">Çar</div>
             <div class="dow">Per</div>
             <div class="dow">Cum</div>
             <div class="dow">Cmt</div>
@@ -792,7 +911,7 @@
   <!-- SUMMARY MODAL -->
   <div class="modal-backdrop" id="summaryBackdrop" role="dialog" aria-modal="true" aria-labelledby="summaryTitle">
     <div class="modal">
-      <h3 id="summaryTitle">🗒️ Randevu Ozeti</h3>
+      <h3 id="summaryTitle">🗒️ Randevu Özeti</h3>
       <ul class="summary-list" id="summaryList"></ul>
       <div class="modal-actions">
         <button type="button" class="btn" id="saveSummary">Kaydet</button>
@@ -804,7 +923,8 @@
 
 
   <!-- CONFIRM MODAL -->
-  <div class="modal-backdrop" id="confirmBackdrop" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" style="display:none;">
+  <div class="modal-backdrop" id="confirmBackdrop" role="dialog" aria-modal="true" aria-labelledby="confirmTitle"
+    style="display:none;">
     <div class="modal">
       <h3 id="confirmTitle">Onay</h3>
       <p id="confirmMessage" style="margin:8px 0 0; color:var(--navy);"></p>
@@ -816,7 +936,8 @@
   </div>
 
   <!-- INFO MODAL -->
-  <div class="modal-backdrop" id="infoBackdrop" role="dialog" aria-modal="true" aria-labelledby="infoTitle" style="display:none;">
+  <div class="modal-backdrop" id="infoBackdrop" role="dialog" aria-modal="true" aria-labelledby="infoTitle"
+    style="display:none;">
     <div class="modal">
       <h3 id="infoTitle">Bilgi</h3>
       <p id="infoMessage" style="margin:8px 0 0; color:var(--navy);"></p>
@@ -827,6 +948,14 @@
   </div>
 
   <script>
+
+    // start-of-script: keep page top on first load (no auto restore)
+    try {
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    } catch (_) { }
+    window.addEventListener('load', () => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    });
 
     // Dark Mode Toggle
     (function initDarkMode() {
@@ -842,7 +971,7 @@
 
         html.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
-        
+
 
         html.style.transition = 'all 0.3s ease';
         setTimeout(() => html.style.transition = '', 300);
@@ -916,10 +1045,22 @@
       });
     })();
 
+    function resetSelectKeepPlaceholder(sel, placeholder) {
+      const first = sel.options[0];
+      if (first) {
+        first.value = '';
+        first.textContent = placeholder;
+        sel.length = 1;
+      } else {
+        sel.innerHTML = '<option value="">' + placeholder + '</option>';
+      }
+      sel.selectedIndex = 0;
+    }
+
     citySel.addEventListener('change', () => {
       cityHelp.textContent = '';
-      districtSel.innerHTML = '<option value="">Seciniz</option>';
-      clinicSel.innerHTML = '<option value="">Once ilce seciniz</option>';
+      resetSelectKeepPlaceholder(districtSel, '🏙️ İlçe seçiniz');
+      resetSelectKeepPlaceholder(clinicSel, '🏥 Klinik seçiniz');
       clinicSel.disabled = true;
 
       const city = citySel.value;
@@ -933,7 +1074,7 @@
 
     districtSel.addEventListener('change', () => {
       districtHelp.textContent = '';
-      clinicSel.innerHTML = '<option value="">Seciniz</option>';
+      resetSelectKeepPlaceholder(clinicSel, '🏥 Klinik seçiniz');
       const city = citySel.value, dist = districtSel.value;
       if (!city || !dist) { clinicSel.disabled = true; return; }
       const clinics = clinicDirectory[city][dist];
@@ -955,10 +1096,10 @@
       e.preventDefault();
       let ok = true;
       cityHelp.textContent = ''; districtHelp.textContent = ''; clinicHelp.textContent = ''; procHelp.textContent = '';
-      if (!citySel.value) { cityHelp.textContent = 'Lutfen il seciniz.'; ok = false; }
-      if (!districtSel.value) { districtHelp.textContent = 'Lutfen ilce seciniz.'; ok = false; }
-      if (clinicSel.disabled || clinicSel.value === '') { clinicHelp.textContent = 'Lutfen klinik seciniz.'; ok = false; }
-      if (!proc.value) { procHelp.textContent = 'Lutfen islem tipi seciniz.'; ok = false; }
+      if (!citySel.value) { cityHelp.textContent = 'Lütfen il seçiniz.'; ok = false; }
+      if (!districtSel.value) { districtHelp.textContent = 'Lütfen ilçe seçiniz.'; ok = false; }
+      if (clinicSel.disabled || clinicSel.value === '') { clinicHelp.textContent = 'Lütfen klinik seçiniz.'; ok = false; }
+      if (!proc.value) { procHelp.textContent = 'Lütfen işlem tipi seçiniz.'; ok = false; }
       if (ok) {
         nextSection.hidden = false;
         // scroll fully to the next section
@@ -971,7 +1112,7 @@
     const dobMonth = document.getElementById('dobMonth');
     const dobYear = document.getElementById('dobYear');
     (function buildDate() {
-      const months = ['Ocak', 'Subat', 'Mart', 'Nisan', 'Mayis', 'Haziran', 'Temmuz', 'Agustos', 'Eylul', 'Ekim', 'Kasim', 'Aralik'];
+      const months = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
       const now = new Date(); const yMax = now.getFullYear(); const yMin = 1940;
       for (let y = yMax; y >= yMin; y--) { const o = document.createElement('option'); o.value = y; o.textContent = y; dobYear.appendChild(o); }
       for (let m = 1; m <= 12; m++) { const o = document.createElement('option'); o.value = m; o.textContent = months[m - 1]; dobMonth.appendChild(o); }
@@ -1048,28 +1189,34 @@
 
       const rawId = (idInput.value || '').trim();
       if (nonCitizen.checked) {
-        if (!/^[A-Za-z0-9]{5,20}$/.test(rawId)) { idHelp.textContent = 'Gecerli bir pasaport numarasi giriniz.'; valid = false; }
+        if (!/^[A-Za-z0-9]{5,20}$/.test(rawId)) { idHelp.textContent = 'Geçerli bir pasaport numarası giriniz.'; valid = false; }
       } else {
-        if (!/^\d{11}$/.test(rawId)) { idHelp.textContent = 'Gecerli bir TCKN giriniz (11 hane).'; valid = false; }
+        if (!/^\d{11}$/.test(rawId)) { idHelp.textContent = 'Geçerli bir TCKN giriniz (11 hane).'; valid = false; }
       }
       if (!fullname.value.trim()) { fullnameHelp.textContent = 'Ad soyad zorunludur.'; valid = false; }
-      if (!dobDay.value || !dobMonth.value || !dobYear.value) { dobHelp.textContent = 'Dogum tarihi zorunludur.'; valid = false; }
+      if (!dobDay.value || !dobMonth.value || !dobYear.value) { dobHelp.textContent = 'Doğum tarihi zorunludur.'; valid = false; }
 
       const phoneDigits = phone.value.replace(/\D/g, '');
       const hasPhone = phoneDigits.length === 10 && phoneDigits.startsWith('5');
       const hasEmail = email.value.trim().length > 0;
       if (!hasPhone && !hasEmail) {
-        phoneHelp.textContent = 'Telefon veya e-posta giriniz.';
-        emailHelp.textContent = 'Telefon veya e-posta giriniz.';
+        phoneHelp.textContent = 'Telefon veya e‑posta giriniz.';
+        emailHelp.textContent = 'Telefon veya e‑posta giriniz.';
         valid = false;
       } else if (hasEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
-        emailHelp.textContent = 'Gecerli bir e-posta giriniz.'; valid = false;
+        emailHelp.textContent = 'Geçerli bir e‑posta giriniz.'; valid = false;
       }
-
       if (valid) {
         calendarStep.hidden = false;
-        // allow layout to update then scroll fully to the bottom of calendar section
-        setTimeout(() => calendarStep.scrollIntoView({ behavior: 'smooth', block: 'end' }), 30);
+        setTimeout(() => {
+          // Önce takvim bölümüne kaydır
+          calendarStep.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+          // Ardından biraz aşağı indir
+          setTimeout(() => {
+            window.scrollBy({ top: 375, behavior: 'smooth' }); // buradaki 100px'i ihtiyacına göre değiştir
+          }, 400); // scrollIntoView animasyonu başlaması için bekleme süresi
+        }, 10);
       }
     });
 
@@ -1085,7 +1232,7 @@
     let viewDate = new Date(); viewDate.setDate(1);
     let selectedDate = null, selectedTime = null;
 
-    const monthNames = ['Ocak', 'Subat', 'Mart', 'Nisan', 'Mayis', 'Haziran', 'Temmuz', 'Agustos', 'Eylul', 'Ekim', 'Kasim', 'Aralik'];
+    const monthNames = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
 
     function buildCalendar() {
       daysWrap.innerHTML = '';
@@ -1180,11 +1327,11 @@
       const clinicInfo = getSelectedClinicInfo();
       const items = [
         ['__HEADER__', 'Klinik Bilgileri'],
-        ['Il', citySel.value || '-'],
-        ['Ilce', districtSel.value || '-'],
+        ['İl', citySel.value || '-'],
+        ['İlçe', districtSel.value || '-'],
         ['Klinik', clinicInfo.name],
         ['Klinik Adresi', clinicInfo.address],
-        ['Islem Tipi', proc.value || '-'],
+        ['İşlem Tipi', proc.value || '-'],
         //['Tarih', selectedDate ? fmtDate(selectedDate) : '-'],
         ['Saat', selectedTime || '-'],
         ['__HEADER__', 'Hasta Bilgileri'],
@@ -1210,8 +1357,9 @@
       if (!selectedDate || !selectedTime) return;
       openSummary();
     });
-    closeSummary.addEventListener('click', () => openConfirm('Kapatmak istediginize emin misiniz?', () => { closeModal(); openInfo('Islem iptal edildi.'); }));
-    saveSummary.addEventListener('click', () => openConfirm('Kaydetmek istediginize emin misiniz?', () => { closeModal(); resetAll(); openInfo('Randevunuz kaydedildi.'); }));
+    // One-click actions (no extra confirmation)
+    closeSummary.addEventListener('click', () => { closeModal(); openInfo('İşlem iptal edildi.'); });
+    saveSummary.addEventListener('click', () => { closeModal(); resetAll(); openInfo('Randevunuz kaydedildi.'); });
     backdrop.addEventListener('click', (e) => { if (e.target === backdrop) closeModal(); });
 
     // confirm + info modals
@@ -1308,14 +1456,27 @@
       <span class="phone-icon" aria-hidden="true">📞</span>
     </a>
     <div class="bubbles">
-      <a class="bubble" href="https://www.instagram.com/rterdogan" target="_blank" rel="noopener noreferrer" title="Instagram">
-        <span class="icon">📷</span><span>Instagram</span>
+      <a class="bubble" href="https://www.instagram.com/rterdogan" target="_blank" rel="noopener noreferrer"
+        title="Instagram">
+        <span class="icon">
+          <img src="insta.png" alt="Instagram" style="width:20px; height:20px; vertical-align:middle;">
+        </span>
+        <span>Instagram</span>
       </a>
-      <a class="bubble" href="https://www.facebook.com/RTErdogan" target="_blank" rel="noopener noreferrer" title="Facebook">
-        <span class="icon">📘</span><span>Facebook</span>
+      <a class="bubble" href="https://www.facebook.com/RTErdogan" target="_blank" rel="noopener noreferrer"
+        title="Facebook">
+        <span class="icon">
+          <img src="facebooklogo.png" alt="Facebook" style="width:20px; height:20px; vertical-align:middle;">
+        </span>
+        <span>Facebook</span>
+
       </a>
-      <a class="bubble" href="https://www.youtube.com/@RTErdogan" target="_blank" rel="noopener noreferrer" title="YouTube">
-        <span class="icon">▶️</span><span>YouTube</span>
+      <a class="bubble" href="https://www.youtube.com/@RTErdogan" target="_blank" rel="noopener noreferrer"
+        title="YouTube">
+        <span class="icon">
+          <img src="youtubelogo.png" alt="YouTube" style="width:20px; height:20px; vertical-align:middle;">
+        </span>
+        <span>YouTube</span>
       </a>
     </div>
   </div>
