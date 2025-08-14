@@ -1,13 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 
 <head>
+  <link rel="stylesheet" href="ekran.css">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Varol Klinigi | Hos Geldiniz</title>
   <meta name="description" content="Dis klinigi randevu ekrani" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       /* palette */
@@ -34,7 +34,7 @@
 
     body {
       margin: 0;
-      font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family: 'Nunito Sans', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: var(--text);
       background:
         radial-gradient(1200px 800px at 10% -10%, #e7f1ff 0%, rgba(231, 241, 255, 0) 60%),
@@ -110,11 +110,11 @@
     }
 
     .logo {
-      width: 48px;
-      height: 48px;
+      width: 275px;
+      height: 65px;
       object-fit: cover;
       border-radius: 12px;
-      background: #fff;
+      background: rgba(10, 37, 64, .97);
       border: 1px solid rgba(0, 0, 0, .08);
     }
 
@@ -311,6 +311,7 @@
       font-weight: 600;
       font-size: 16px;
       background: #f7fbff;
+      will-change: transform;
     }
 
     .day:hover {
@@ -355,6 +356,7 @@
       font-weight: 700;
       text-align: center;
       color: var(--navy);
+      will-change: transform;
     }
 
     .slot[disabled] {
@@ -422,21 +424,231 @@
       justify-content: flex-end;
       margin-top: 14px;
     }
+    
+    /* theme switch (pill + knob) */
+    .theme-switch {
+      width: 56px;
+      height: 30px;
+      padding: 4px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      border: 1px solid rgba(0, 0, 0, .12);
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+      /* ensure icons are visible */
+      overflow: hidden;
+    }
+
+    .theme-switch .icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      opacity: .8;
+      pointer-events: none;
+    }
+
+    .theme-switch .sun { left: 8px; }
+    .theme-switch .moon { right: 8px; }
+    /* clarify state: in light, sun prominent; in dark, moon prominent */
+    html:not([data-theme="dark"]) .theme-switch .sun { opacity: 1; }
+    html:not([data-theme="dark"]) .theme-switch .moon { opacity: .4; }
+
+    .theme-switch .switch-handle {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .25), inset 0 0 0 1px rgba(0,0,0,.06);
+      transform: translateX(0);
+      transition: transform .25s ease;
+    }
+
+    html[data-theme="dark"] .theme-switch {
+      background: #111827;
+      border-color: rgba(255, 255, 255, .2);
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .3);
+    }
+
+    html[data-theme="dark"] .theme-switch .switch-handle {
+      transform: translateX(26px);
+      background: var(--gold);
+    }
+
+    html[data-theme="dark"] .theme-switch .sun { opacity: .4; }
+    html[data-theme="dark"] .theme-switch .moon { opacity: 1; }
+    /* icon colors for readability */
+    .theme-switch .icon { color: #0a2540; }
+    html[data-theme="dark"] .theme-switch .icon { color: #e5e7eb; }
+
+    /* dark theme overrides */
+    html[data-theme="dark"] {
+      --bg: #0b1118;
+      --card: #0f172a;
+      --text: #e5e7eb;
+      --muted: #cbd5e1;
+    }
+
+    html[data-theme="dark"] body {
+      background: linear-gradient(180deg, #0b1118, #0a0f1a);
+      color: var(--text);
+    }
+
+    html[data-theme="dark"] .card {
+      background: var(--card) !important;
+      border-color: rgba(255, 255, 255, .08);
+      color: var(--text);
+    }
+
+    /* improve inputs readability in dark */
+    html[data-theme="dark"] select,
+    html[data-theme="dark"] input[type="text"],
+    html[data-theme="dark"] input[type="tel"],
+    html[data-theme="dark"] input[type="email"] {
+      background: #0b1220;
+      color: #e5e7eb;
+      border-color: rgba(255, 255, 255, .15);
+    }
+
+    html[data-theme="dark"] label { color: #e5e7eb; }
+    html[data-theme="dark"] .helper { color: #fca5a5; }
+    html[data-theme="dark"] .date-wheel { background: #0b1220; border-color: rgba(255,255,255,.12); }
+    html[data-theme="dark"] .cal { background: #0b1220; }
+    html[data-theme="dark"] .day { background: #0e1628; color: #e5e7eb; border-color: rgba(255,255,255,.08); }
+    html[data-theme="dark"] .day.disabled { background: #0a0f1a; }
+    html[data-theme="dark"] .slots h3 { color: #e5e7eb; }
+    html[data-theme="dark"] .slot { background: #0e1628; color: #e5e7eb; border-color: rgba(255,255,255,.1); }
+
+    html[data-theme="dark"] .cal {
+      background: var(--card);
+      border-color: rgba(255, 255, 255, .08);
+    }
+
+    html[data-theme="dark"] h1 {
+      background: none !important;
+      -webkit-text-fill-color: inherit !important;
+      color: var(--text) !important;
+      text-shadow: none;
+    }
+
+    /* Floating contact widget */
+    .contact-widget {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 1200;
+    }
+
+    .contact-fab {
+      width: 64px;
+      height: 64px;
+      border-radius: 22px;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255,255,255,.25);
+      border: 1px solid rgba(0,0,0,.08);
+      background:
+        radial-gradient(circle at 35% 38%, #fff 0 48%, transparent 49%),
+        radial-gradient(circle at 60% 30%, #fff 0 46%, transparent 47%),
+        radial-gradient(circle at 50% 60%, #fff 0 52%, transparent 53%),
+        radial-gradient(circle at 40% 70%, #fff 0 50%, transparent 51%),
+        linear-gradient(#ffffff, #ffffff);
+    }
+
+    html[data-theme="dark"] .contact-fab {
+      border-color: rgba(255,255,255,.12);
+    }
+
+    .contact-fab .phone-icon {
+      font-size: 30px;
+      line-height: 1;
+      color: #22c55e; /* green */
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,.25));
+    }
+
+    /* phone badge on the FAB, visible in both themes */
+    /* same color works well on dark too */
+
+    .bubbles {
+      position: absolute;
+      right: 0;
+      bottom: 78px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    .bubble {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #ffffff;
+      color: #0a2540;
+      border: 1px solid rgba(0,0,0,.08);
+      box-shadow: 0 10px 24px rgba(0,0,0,.18);
+      text-decoration: none;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(10px) scale(.96);
+      pointer-events: none;
+      transition: opacity .20s ease, transform .20s ease;
+    }
+
+    .bubble .icon { font-size: 16px; }
+
+    .contact-widget:hover .bubble,
+    .contact-widget:focus-within .bubble {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .bubble:nth-child(1) { transition-delay: .02s; }
+    .bubble:nth-child(2) { transition-delay: .07s; }
+    .bubble:nth-child(3) { transition-delay: .12s; }
+
+    html[data-theme="dark"] .bubble {
+      background: #0f172a;
+      color: var(--text);
+      border-color: rgba(255,255,255,.06);
+    }
+
+    /* speed up the personal info step: reduce animations/transitions */
+    #next .card,
+    #next .field,
+    #next select,
+    #next input {
+      animation: none !important;
+      transition: none !important;
+    }
   </style>
 </head>
 
 <body>
   <!-- background teeth -->
-  <div class="bg" aria-hidden="true" id="bg"></div>
 
   <!-- header -->
   <header>
     <div class="brand">
-      <img class="logo" id="siteLogo" src="kucuklogo.jpg" alt="Klinik logosu" />
-      <div class="brand-name" id="brandName">Varol Klinigi</div>
+      <img class="logo" id="siteLogo" src="sollogoo.png" alt="Klinik logosu" />
+      
     </div>
     <nav class="actions" aria-label="Hizli Islemler">
-      <button class="btn" type="button">Menü</button>
+      <div class="theme-switch" id="themeToggle">
+  <span class="icon sun">☀️</span>
+  <span class="icon moon">🌙</span>
+  <div class="switch-handle"></div>
+</div>
+      
     </nav>
   </header>
 
@@ -449,33 +661,33 @@
         <!-- STEP 1: location -> clinic -> procedure -->
         <form id="preForm" class="form-vertical" novalidate>
           <div class="field">
-            <label for="city">Il<span class="req">*</span></label>
+            <label for="city">📍 Il<span class="req">*</span></label>
             <select id="city" required>
-              <option value="">Seciniz</option>
+              <option value="">Sehir giriniz</option>
             </select>
             <div class="helper" id="cityHelp"></div>
           </div>
 
           <div class="field">
-            <label for="district">Ilce<span class="req">*</span></label>
+            <label for="district">🏙️ Ilce<span class="req">*</span></label>
             <select id="district" required disabled>
-              <option value="">Once il seciniz</option>
+              <option value="">Ilce giriniz</option>
             </select>
             <div class="helper" id="districtHelp"></div>
           </div>
 
           <div class="field">
-            <label for="clinic">Klinik Secimi<span class="req">*</span></label>
+            <label for="clinic">🏥 Klinik Secimi<span class="req">*</span></label>
             <select id="clinic" required disabled>
-              <option value="">Once ilce seciniz</option>
+              <option value="">Klinik seciniz</option>
             </select>
             <div class="helper" id="clinicHelp"></div>
           </div>
 
           <div class="field">
-            <label for="proc">Islem Tipi<span class="req">*</span></label>
+            <label for="proc">🧾 Islem Tipi<span class="req">*</span></label>
             <select id="proc" required>
-              <option value="">Seciniz</option>
+              <option value="">Islem tipi seciniz</option>
               <option>Genel Muayene</option>
               <option>Dis Tasi Temizligi</option>
               <option>Dis Beyazlatma</option>
@@ -500,7 +712,7 @@
         <form id="infoForm" class="form-vertical" novalidate>
           <!-- single ID field -->
           <div class="field" id="idField">
-            <label for="idInput" id="idLabel">T.C. Kimlik Numarasi <span class="req">*</span></label>
+            <label for="idInput" id="idLabel">🪪 T.C. Kimlik Numarasi <span class="req">*</span></label>
             <input type="text" id="idInput" maxlength="11" inputmode="numeric" placeholder="11 haneli TCKN">
             <div class="helper" id="idHelp"></div>
           </div>
@@ -512,13 +724,13 @@
           </div>
 
           <div class="field">
-            <label for="fullname">Ad Soyad<span class="req">*</span></label>
+            <label for="fullname">👤 Ad Soyad<span class="req">*</span></label>
             <input type="text" id="fullname" placeholder="Ad Soyad">
             <div class="helper" id="fullnameHelp"></div>
           </div>
 
           <div class="field">
-            <label>Dogum Tarihi<span class="req">*</span></label>
+            <label>🎂 Dogum Tarihi<span class="req">*</span></label>
             <div class="date-wheel">
               <select id="dobDay"></select>
               <select id="dobMonth"></select>
@@ -528,13 +740,13 @@
           </div>
 
           <div class="field">
-            <label for="phone">Telefon (5xx)xxx-xx-xx</label>
+            <label for="phone">📞 Telefon (5xx)xxx-xx-xx</label>
             <input type="tel" id="phone" placeholder="(5__)___-__-__" inputmode="numeric" maxlength="16">
             <div class="helper" id="phoneHelp"></div>
           </div>
 
           <div class="field">
-            <label for="email">E-posta</label>
+            <label for="email">📧 E-posta</label>
             <input type="email" id="email" placeholder="ornek@mail.com">
             <div class="helper" id="emailHelp"></div>
           </div>
@@ -580,41 +792,78 @@
   <!-- SUMMARY MODAL -->
   <div class="modal-backdrop" id="summaryBackdrop" role="dialog" aria-modal="true" aria-labelledby="summaryTitle">
     <div class="modal">
-      <h3 id="summaryTitle">Randevu Ozeti</h3>
+      <h3 id="summaryTitle">🗒️ Randevu Ozeti</h3>
       <ul class="summary-list" id="summaryList"></ul>
       <div class="modal-actions">
+        <button type="button" class="btn" id="saveSummary">Kaydet</button>
         <button type="button" class="btn" id="closeSummary">Kapat</button>
       </div>
     </div>
   </div>
 
-  <!-- tooth symbol -->
-  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-    <symbol id="tooth" viewBox="0 0 64 64">
-      <path fill="currentColor"
-        d="M45.4 6.8c-4.7-.8-8.6.5-13.4 3.1-4.9-2.6-8.8-3.9-13.5-3.1C6.8 8.8 2.7 19.6 8 29.9c6.9 13.6 9.2 14.2 11.1 14.2 4.1 0 4.7-6.8 7.2-6.8 2.6 0 3.2 6.8 7.3 6.8 1.9 0 4.3-.6 11.2-14.2 5.3-10.3 1.2-21.1-9.4-23.1zM26 12.6c1.1-.6 2.2-1.1 3.3-1.6l.1-.1.1.1c1.1.5 2.2 1 3.3 1.6 1.4.8 2.5 2.1 2.9 3.7.2.9-.3 1.9-1.2 2.1-.8.2-1.6-.3-1.8-1.1-.2-.8-.7-1.5-1.5-1.9-.5-.3-1-.5-1.8-.9-.8.4-1.3.6-1.8.9-.7.4-1.3 1.1-1.5 1.9-.2.8-1 1.3-1.8 1.1-.9-.2-1.4-1.2-1.2-2.1.3-1.6 1.4-2.9 2.9-3.7z" />
-    </symbol>
-  </svg>
+
+
+  <!-- CONFIRM MODAL -->
+  <div class="modal-backdrop" id="confirmBackdrop" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" style="display:none;">
+    <div class="modal">
+      <h3 id="confirmTitle">Onay</h3>
+      <p id="confirmMessage" style="margin:8px 0 0; color:var(--navy);"></p>
+      <div class="modal-actions">
+        <button type="button" class="btn" id="confirmNo">Hayir</button>
+        <button type="button" class="btn" id="confirmYes">Evet</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- INFO MODAL -->
+  <div class="modal-backdrop" id="infoBackdrop" role="dialog" aria-modal="true" aria-labelledby="infoTitle" style="display:none;">
+    <div class="modal">
+      <h3 id="infoTitle">Bilgi</h3>
+      <p id="infoMessage" style="margin:8px 0 0; color:var(--navy);"></p>
+      <div class="modal-actions">
+        <button type="button" class="btn" id="infoClose">Kapat</button>
+      </div>
+    </div>
+  </div>
 
   <script>
-    // background teeth
-    (function spawnTeeth() {
-      const bg = document.getElementById('bg');
-      const total = 40;
-      for (let i = 0; i < total; i++) {
-        const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        s.setAttribute('class', 'tooth');
-        if (i % 5 === 0) s.classList.add('lg');
-        if (i % 3 === 0) s.classList.add('sm');
-        const leftBias = i < total / 2;
-        const x = leftBias ? (Math.random() * 30) : (Math.random() * 100);
-        s.style.setProperty('--x', x + 'vw');
-        s.style.top = (-Math.random() * 100) + 'vh';
-        s.style.animationDelay = (Math.random() * -20) + 's';
-        s.setAttribute('viewBox', '0 0 64 64');
-        s.innerHTML = '<use href="#tooth"></use>';
-        bg.appendChild(s);
-      }
+
+    // Dark Mode Toggle
+    (function initDarkMode() {
+      const toggle = document.getElementById('themeToggle');
+      const html = document.documentElement;
+
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      html.setAttribute('data-theme', savedTheme);
+
+      toggle.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+
+        html.style.transition = 'all 0.3s ease';
+        setTimeout(() => html.style.transition = '', 300);
+      });
+
+      // use CSS-only knob; keep ARIA title for accessibility
+      toggle.setAttribute('role', 'switch');
+      toggle.setAttribute('aria-checked', savedTheme === 'dark');
+      toggle.title = savedTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
+
+      toggle.addEventListener('click', () => {
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        toggle.setAttribute('aria-checked', (!isDark).toString());
+        toggle.title = !isDark ? 'Light Mode' : 'Dark Mode';
+      });
+
+      // set initial ARIA title on icons as well
+      const sun = toggle.querySelector('.sun');
+      const moon = toggle.querySelector('.moon');
+      if (sun) sun.setAttribute('aria-hidden', 'true');
+      if (moon) moon.setAttribute('aria-hidden', 'true');
     })();
 
     // sample clinic directory (update addresses as needed)
@@ -710,7 +959,11 @@
       if (!districtSel.value) { districtHelp.textContent = 'Lutfen ilce seciniz.'; ok = false; }
       if (clinicSel.disabled || clinicSel.value === '') { clinicHelp.textContent = 'Lutfen klinik seciniz.'; ok = false; }
       if (!proc.value) { procHelp.textContent = 'Lutfen islem tipi seciniz.'; ok = false; }
-      if (ok) { nextSection.hidden = false; nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      if (ok) {
+        nextSection.hidden = false;
+        // scroll fully to the next section
+        setTimeout(() => nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' }), 10);
+      }
     });
 
     // DOB wheel
@@ -815,7 +1068,8 @@
 
       if (valid) {
         calendarStep.hidden = false;
-        calendarStep.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // allow layout to update then scroll fully to the bottom of calendar section
+        setTimeout(() => calendarStep.scrollIntoView({ behavior: 'smooth', block: 'end' }), 30);
       }
     });
 
@@ -876,10 +1130,19 @@
       slotsWrap.hidden = false;
       slotGrid.innerHTML = '';
       const slots = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'];
+      const now = new Date();
+      const isToday = sameDate(date, now);
       slots.forEach((t, i) => {
         const b = document.createElement('button');
         b.type = 'button'; b.className = 'slot'; b.textContent = t;
+        // örnek engelli saatler
         if (i === 3 || i === 6 || i === 13) { b.disabled = true; }
+        // bugünün geçmiş saatleri devre dışı
+        if (isToday) {
+          const [hh, mm] = t.split(':').map(Number);
+          const slotDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), hh, mm, 0, 0);
+          if (slotDate <= now) { b.disabled = true; }
+        }
         b.addEventListener('click', () => {
           if (b.disabled) return;
           document.querySelectorAll('.slot.selected').forEach(el => el.classList.remove('selected'));
@@ -896,6 +1159,7 @@
     const backdrop = document.getElementById('summaryBackdrop');
     const summaryList = document.getElementById('summaryList');
     const closeSummary = document.getElementById('closeSummary');
+    const saveSummary = document.getElementById('saveSummary');
 
     function fmtDate(d) {
       const dd = String(d.getDate()).padStart(2, '0');
@@ -946,8 +1210,78 @@
       if (!selectedDate || !selectedTime) return;
       openSummary();
     });
-    closeSummary.addEventListener('click', closeModal);
+    closeSummary.addEventListener('click', () => openConfirm('Kapatmak istediginize emin misiniz?', () => { closeModal(); openInfo('Islem iptal edildi.'); }));
+    saveSummary.addEventListener('click', () => openConfirm('Kaydetmek istediginize emin misiniz?', () => { closeModal(); resetAll(); openInfo('Randevunuz kaydedildi.'); }));
     backdrop.addEventListener('click', (e) => { if (e.target === backdrop) closeModal(); });
+
+    // confirm + info modals
+    const confirmBackdrop = document.getElementById('confirmBackdrop');
+    const confirmMessage = document.getElementById('confirmMessage');
+    const confirmYes = document.getElementById('confirmYes');
+    const confirmNo = document.getElementById('confirmNo');
+
+    function openConfirm(message, onYes) {
+      confirmMessage.textContent = message;
+      confirmBackdrop.style.display = 'flex';
+      const yesHandler = () => { confirmBackdrop.style.display = 'none'; confirmYes.removeEventListener('click', yesHandler); onYes && onYes(); };
+      const noHandler = () => { confirmBackdrop.style.display = 'none'; confirmNo.removeEventListener('click', noHandler); };
+      confirmYes.addEventListener('click', yesHandler, { once: true });
+      confirmNo.addEventListener('click', noHandler, { once: true });
+    }
+
+    const infoBackdrop = document.getElementById('infoBackdrop');
+    const infoMessage = document.getElementById('infoMessage');
+    const infoClose = document.getElementById('infoClose');
+    function openInfo(message) { infoMessage.textContent = message; infoBackdrop.style.display = 'flex'; }
+    infoClose.addEventListener('click', () => infoBackdrop.style.display = 'none');
+
+    // reset app to initial state after successful save
+    function resetAll() {
+      try {
+        // Step 1 form
+        citySel.value = '';
+        districtSel.disabled = true;
+        districtSel.innerHTML = '<option value="">Ilce giriniz</option>';
+        clinicSel.disabled = true;
+        clinicSel.innerHTML = '<option value="">Klinik seciniz</option>';
+        proc.value = '';
+        cityHelp.textContent = '';
+        districtHelp.textContent = '';
+        clinicHelp.textContent = '';
+        procHelp.textContent = '';
+
+        // Step 2 form
+        nonCitizen.checked = false;
+        syncIdMode();
+        idInput.value = '';
+        fullname.value = '';
+        if (dobDay) dobDay.value = '';
+        if (dobMonth) dobMonth.value = '';
+        if (dobYear) dobYear.value = '';
+        phone.value = '';
+        email.value = '';
+        [idHelp, fullnameHelp, dobHelp, phoneHelp, emailHelp].forEach(el => el.textContent = '');
+
+        // Hide subsequent sections
+        document.getElementById('next').hidden = true;
+        document.getElementById('calendarStep').hidden = true;
+
+        // Reset calendar state
+        selectedDate = null;
+        selectedTime = null;
+        viewDate = new Date();
+        viewDate.setDate(1);
+        if (typeof buildCalendar === 'function') buildCalendar();
+        slotsWrap.hidden = true;
+        slotGrid.innerHTML = '';
+        completeBtn.disabled = true;
+
+        // Scroll to top/hero
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (_) {
+        // no-op if any element not present
+      }
+    }
 
     // init calendar when visible
     const obs = new IntersectionObserver((entries) => {
@@ -956,7 +1290,35 @@
       });
     }, { threshold: 0.2 });
     obs.observe(calendarStep);
+
+    // Perf: scroll sırasında ağır arka plan animasyonlarını duraklat
+    (function optimizeScrollAnimations() {
+      let t = null;
+      window.addEventListener('scroll', () => {
+        document.body.classList.add('scrolling');
+        if (t) clearTimeout(t);
+        t = setTimeout(() => document.body.classList.remove('scrolling'), 120);
+      }, { passive: true });
+    })();
   </script>
+
+  <!-- Floating Contact Widget -->
+  <div class="contact-widget" aria-label="Iletisim">
+    <a class="contact-fab" href="#" aria-haspopup="true" aria-expanded="false" tabindex="0" title="Iletisim">
+      <span class="phone-icon" aria-hidden="true">📞</span>
+    </a>
+    <div class="bubbles">
+      <a class="bubble" href="https://www.instagram.com/rterdogan" target="_blank" rel="noopener noreferrer" title="Instagram">
+        <span class="icon">📷</span><span>Instagram</span>
+      </a>
+      <a class="bubble" href="https://www.facebook.com/RTErdogan" target="_blank" rel="noopener noreferrer" title="Facebook">
+        <span class="icon">📘</span><span>Facebook</span>
+      </a>
+      <a class="bubble" href="https://www.youtube.com/@RTErdogan" target="_blank" rel="noopener noreferrer" title="YouTube">
+        <span class="icon">▶️</span><span>YouTube</span>
+      </a>
+    </div>
+  </div>
 </body>
 
 </html>
