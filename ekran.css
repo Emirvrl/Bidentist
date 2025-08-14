@@ -718,7 +718,9 @@ input:focus-visible {
 main{
   padding-top: calc(var(--header-h)+800); /* header + nefes payi */
 }
-
-label, input::placeholder {
+.contact-fab,
+.contact-fab .phone-icon {
   text-decoration: none;
 }
+
+
