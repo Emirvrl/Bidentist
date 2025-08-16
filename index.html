@@ -651,8 +651,8 @@
     }
 
     .contact-fab {
-      width: 64px;
-      height: 64px;
+      width: 50px;
+      height: 50px;
       border-radius: 22px;
       position: relative;
       cursor: pointer;
@@ -733,6 +733,10 @@
 
     .bubble:nth-child(3) {
       transition-delay: .12s;
+    }
+
+    .bubble:nth-child(4) {
+      transition-delay: .17s;
     }
 
     html[data-theme="dark"] .bubble {
@@ -998,34 +1002,28 @@
     // sample clinic directory (update addresses as needed)
     const clinicDirectory = {
       "Istanbul": {
-        "Bagcilar": [
-          { name: "Varol Klinigi Bagcilar", address: "Adres - Bagcilar, Istanbul" }
+        "Eyupsultan": [
+          {
+            name: "Dt. Enes Gunduz",
+            address: "Güzeltepe, Mareşal Fevzi Çakmak Cd. No:106, 34060 Eyüpsultan/İstanbul",
+            mapLink: "https://maps.app.goo.gl/2zPgLi2Yt4cJyho79"
+          }
         ],
-        "Kadikoy": [
-          { name: "Varol Klinigi Kadikoy", address: "Adres - Kadikoy, Istanbul" }
+        "Bayrampasa": [
+          {
+            name: "Koklu Agiz Ve Dis Sagligi",
+            address: "Yıldırım, 100. Yil Cd no.19-21B, 34035 , Bayrampaşa/İstanbul",
+            mapLink: "https://maps.app.goo.gl/L68KPfBEA4xJLjhZ7"
+          }
         ]
       },
-      "Ankara": {
-        "Cankaya": [
-          { name: "Varol Klinigi Cankaya", address: "Adres - Cankaya, Ankara" }
-        ]
-      },
-      "Izmir": {
-        "Konak": [
-          { name: "Varol Klinigi Konak", address: "Adres - Konak, Izmir" }
-        ]
-      },
-      "Bursa": {
-        "Nilufer": [
-          { name: "Varol Klinigi Nilufer", address: "Adres - Nilufer, Bursa" }
-        ],
+      "Gaziantep": {
         "Osmangazi": [
-          { name: "Varol Klinigi Osmangazi", address: "Adres - Osmangazi, Bursa" }
-        ]
-      },
-      "Antalya": {
-        "Muratpasa": [
-          { name: "Varol Klinigi Muratpasa", address: "Adres - Muratpasa, Antalya" }
+          {
+            name: "Doctor Kudeyt",
+            address: "Osmangazi, Hayrettin Karaca Sk No:6, 27560 Şehitkamil / Gaziantep",
+            mapLink: "https://www.google.com/maps?q=37.065806,37.331361"
+          }
         ]
       }
     };
@@ -1321,6 +1319,16 @@
       return c || { name: '-', address: '-' };
     }
 
+    function mapsDirectionsUrl(query) {
+      const enc = encodeURIComponent(query);
+      const ua = navigator.userAgent || '';
+      const isApple = /iPad|iPhone|Macintosh/.test(ua);
+      return isApple
+        ? ('https://maps.apple.com/?daddr=' + enc)
+        : ('https://www.google.com/maps/dir/?api=1&destination=' + enc);
+    }
+
+
     function openSummary() {
       summaryList.innerHTML = '';
       const idValue = (idInput.value || '').trim();
@@ -1330,7 +1338,7 @@
         ['İl', citySel.value || '-'],
         ['İlçe', districtSel.value || '-'],
         ['Klinik', clinicInfo.name],
-        ['Klinik Adresi', clinicInfo.address],
+        ['Klinik Adresi',`<a href="${clinicInfo.mapLink}" target="_blank" style="color:blue; text-decoration:underline;">${clinicInfo.address}</a>`],
         ['İşlem Tipi', proc.value || '-'],
         //['Tarih', selectedDate ? fmtDate(selectedDate) : '-'],
         ['Saat', selectedTime || '-'],
@@ -1478,6 +1486,15 @@
         </span>
         <span>YouTube</span>
       </a>
+
+      <a class="bubble" href="https://wa.me/905497195699?text=Merhaba!" target="_blank" rel="noopener noreferrer"
+        title="WhatsApp">
+        <span class="icon">
+          <img src="whatsapp.png" alt="WhatsApp" style="width:20px; height:20px; vertical-align:middle;">
+        </span>
+        <span>WhatsApp</span>
+      </a>
+
     </div>
   </div>
 </body>
