@@ -718,14 +718,9 @@ input:focus-visible {
 main{
   padding-top: calc(var(--header-h)+800); /* header + nefes payi */
 }
+
 .contact-fab,
 .contact-fab .phone-icon {
   text-decoration: none;
 }
-
-.phone-icon {
-  display: inline-block; /* alt çizgi boşluğunu da kaldırır */
-}
-
-
 
